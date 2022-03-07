@@ -4,18 +4,26 @@ class Custom_inputFiel extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final String? helperText;
-
+  final TextInputType? inputType;
+  final bool obscureText;
   final Icon? sufix;
   final Icon? icon;
 
-  
+  final String formProperty;
+  final Map<String, String> formValues;
+
   const Custom_inputFiel({
     Key? key,
     this.hintText,
     this.labelText,
-    this.helperText, 
-    this.sufix, 
+    this.helperText,
+    this.sufix,
     this.icon,
+    this.inputType,
+    this.obscureText = false, 
+    required this.formProperty, 
+    required this.formValues,
+
 
   }) : super(key: key);
 
@@ -24,8 +32,10 @@ class Custom_inputFiel extends StatelessWidget {
     return TextFormField(
       autofocus: true,
       initialValue: '',
+      keyboardType: inputType,
+      obscureText: obscureText,
       textCapitalization: TextCapitalization.words,
-      onChanged: (value) => {},
+      onChanged: (value) => {formValues[formProperty] = value},
       validator: (value) {
         if (value == null) return 'este campo es obligatorio';
         return value.length < 3 ? 'minimo 3 caracteres ' : null;
